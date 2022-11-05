@@ -75,23 +75,23 @@ NodeAddress lastnode(NodeAddress head)
 NodeAddress partitionList(NodeAddress start, NodeAddress stop)
 {
     NodeAddress pivot = start;
+    NodeAddress wall = start;
     NodeAddress curr = start;
     int temp = 0;
     while(curr!=NULL && curr!=stop)
     {
         if(curr->val < stop->val)
         {
-
-            temp = start->val;
-            start->val = curr->val;
+            temp = wall->val;
+            wall->val = curr->val;
             curr->val = temp;
-            pivot = start;
-            start = start->next;
+            pivot = wall;
+            wall = wall->next;
         }
         curr = curr->next;
     }
-    temp = start->val;
-    start->val = stop->val;
+    temp = wall->val;
+    wall->val = stop->val;
     stop->val = temp;
     return pivot;
 }
