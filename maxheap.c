@@ -21,23 +21,23 @@ void reheapify(int *a, int n, int p)
 {
     int lc = 2*p + 1;
     int rc = 2*p + 2;
-    int min=p;
-    if(lc<n && a[lc]<a[min])
+    int max=p;
+    if(lc<n && a[lc]>a[max])
     {
-        min = lc;
+        max = lc;
     }
-    if(rc<n && a[rc]<a[min])
+    if(rc<n && a[rc]>a[max])
     {
-        min = rc;
+        max = rc;
     }
-    if(min==p)
+    if(max==p)
     {
         return;
     }
     else
     {
-        swap(&a[min],&a[p]);
-        reheapify(a,n,min);
+        swap(&a[max],&a[p]);
+        reheapify(a,n,max);
     }
 }
 void heap(int *a, int n)
@@ -57,13 +57,13 @@ int* insert(int *a, int *n, int x)
     return an;
 }
 
-int extractMin(int *a, int *n)
+int extractMax(int *a, int *n)
 {
     swap(&a[0],&a[*n-1]);
-    int min = a[*n-1];
+    int max = a[*n-1];
     *n = *n-1;
     reheapify(a,*n,0);
-    return min;
+    return max;
 }
 
 int main(int argv, char ** argc)
@@ -78,6 +78,6 @@ int main(int argv, char ** argc)
         scanf("%d",&a[i]);
     }
     heap(a,n);
-    printf("Min is %d\n",extractMin(a,&n));
+    printf("Max is %d\n",extractMax(a,&n));
 
 }
