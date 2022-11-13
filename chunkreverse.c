@@ -20,16 +20,17 @@ NodeAddress chunkReverseList(NodeAddress head,int k)
     curr = head;
     prev = NULL;
     nextv = NULL;
-    while(head!=NULL && count<k)
-        {
 
+    while(curr!=NULL && count<k)
+        {
+            
             nextv = curr->next;
             curr->next = prev;
             prev = curr;
             curr = nextv;
             count++;
         }
-    if (head!=NULL)
+    if (nextv!=NULL)
         {
             head->next = chunkReverseList(nextv,k);
         }
