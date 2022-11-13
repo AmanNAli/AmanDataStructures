@@ -6,6 +6,17 @@ void swap(int *a, int *b)
     *a = *b;
     *b = temp;
 }
+void printHeap(int *a, int n)
+{
+    printf("Your heap is:");
+    for(int i=0;i<n;i++)
+    {
+        if(i=n-1)
+        printf("%d.",a[i]);
+        else
+        printf("%d,"a[i]);
+    }
+}
 void reheapify(int *a, int n, int p)
 {
     int lc = 2*p + 1;
