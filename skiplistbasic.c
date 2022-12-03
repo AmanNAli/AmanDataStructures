@@ -7,6 +7,26 @@ struct node
     struct node **next;
 };
 typedef struct node *NodeAddress;
+NodeAddress skipify(NodeAddress head)
+{
+    NodeAddress temp = head;
+    while (temp)
+    {
+        if (temp->levels == 2)
+        {
+            NodeAddress c = temp->next[0];
+            while (c && c->levels < 2)
+            {
+                c = c->next[0];
+            }
+            temp->next[1] = c;
+            temp = temp->next[1];
+        }
+        else
+            temp = temp->next[0];
+    }
+    return head;
+}
 NodeAddress skipListfromArr(int *a, int n)
 {
     NodeAddress head = malloc(sizeof(struct node));
@@ -32,24 +52,10 @@ NodeAddress skipListfromArr(int *a, int n)
         temp->next = malloc(temp->levels * sizeof(struct node *));
         temp->val = a[i];
     }
-    temp = head;
-    while (temp)
-    {
-        if (temp->levels == 2)
-        {
-            NodeAddress c = temp->next[0];
-            while (c && c->levels < 2)
-            {
-                c = c->next[0];
-            }
-            temp->next[1] = c;
-            temp = temp->next[1];
-        }
-        else
-            temp = temp->next[0];
-    }
+    head = skipify(head);
     return head;
 }
+
 void search(NodeAddress temp, int x)
 {
     int flag = 0;
